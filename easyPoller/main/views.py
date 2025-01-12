@@ -38,11 +38,22 @@ def results_view(request, id):
 
 def vote(request):
     if request.method == "POST":
-        ao = AnswerOptions.objects.filter(id=int(request.POST.get("answer_option_id"))).first()
-        ao.votes += 1
-        ao.save()
+        # get the vote_id so we can find that item and increment the votes on it
+        vote_id = int(request.POST.get("answer_option_id"))
+        ao = AnswerOptions.objects.filter(id=vote_id).first()
+        poll_id = ao.poll.id
 
-        return HttpResponse(200)
+        # Check if we have voted on this poll already
+        if request.session.get(f'voted_in_{poll_id}', False):
+            return HttpResponse(403)
+        else:
+            ao.votes += 1
+            ao.save()
+
+            # Mark down that we voted
+            request.session[f'voted_in_{str(poll_id)}'] = True
+
+            return HttpResponse(200)
 
 
 
