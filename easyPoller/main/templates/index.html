@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Poll</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+  <div class="container">
+    <h1>Create a Poll</h1>
+
+    <!-- Poll creation form -->
+    <form id="createPollForm">
+      <div class="form-group">
+        <label for="pollQuestion">Poll Question</label>
+        <input type="text" id="pollQuestion" name="question" placeholder="Enter the poll question" required>
+      </div>
+
+      <!-- Dynamic answer options -->
+      <div class="form-group" id="answerOptions">
+        <label>Answer Options</label>
+        <div class="answer-option">
+          <input type="text" name="answer_option" placeholder="Enter answer option" required>
+          <button type="button" class="remove-option">Remove</button>
+        </div>
+      </div>
+
+      <button type="button" id="addOptionBtn">Add Another Option</button>
+
+      <button type="submit" class="submit-btn">Create Poll</button>
+    </form>
+  </div>
+
+
+  <script>
+    // Get the CSRF token from the template
+    const csrfToken = '{{ csrf_token }}';
+
+    // Add a new answer option field
+    document.getElementById("addOptionBtn").addEventListener("click", function() {
+      const newOption = document.createElement("div");
+      newOption.classList.add("answer-option");
+      newOption.innerHTML = `
+        <input type="text" name="answer_option" placeholder="Enter answer option" required>
+        <button type="button" class="remove-option">Remove</button>
+      `;
+      document.getElementById("answerOptions").appendChild(newOption);
+    });
+
+    // Remove an answer option
+    document.getElementById("answerOptions").addEventListener("click", function(e) {
+      if (e.target && e.target.classList.contains("remove-option")) {
+        e.target.parentElement.remove();
+      }
+    });
+
+    // Handle form submission
+    document.getElementById("createPollForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(this);
+      const data = {};
+      formData.forEach((value, key) => {
+        if (!data[key]) {
+          data[key] = [];
+        }
+        data[key].push(value);
+      });
+
+      // Send data to backend (AJAX)
+      $.ajax({
+        type: "POST",
+        url: "/",  // Backend URL to handle poll creation
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        beforeSend: function(xhr) {
+          // Add CSRF token to the request header
+          xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
+        success: function(response) {
+          alert("Poll created successfully!");
+          // Redirect or reset the form
+          window.location.href = "/polls";
+        },
+        error: function(xhr, status, error) {
+          alert("Error: " + error);
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
