@@ -33,7 +33,6 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token for security
           },
           success: function(response) {
-            alert('Your vote has been counted!');
             location.reload();  // Reload to see updated vote counts
           },
           error: function(xhr, status, error) {

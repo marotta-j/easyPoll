@@ -87,9 +87,9 @@
           xhr.setRequestHeader("X-CSRFToken", csrfToken);
         },
         success: function(response) {
-          alert("Poll created successfully!");
+          alert(response);
           // Redirect or reset the form
-          window.location.href = "/";
+          window.location.href = "/" + response;
         },
         error: function(xhr, status, error) {
           alert("Error: " + error);

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Poll, AnswerOptions
 import json
 from django.http import HttpResponse, JsonResponse
@@ -18,6 +18,8 @@ def index(request):
         for answer in data.get("answer_option"):
             a = AnswerOptions(poll=new_poll, option=answer, votes=0)
             a.save()
+
+        return JsonResponse(new_poll.id, safe=False)
 
 
     polls = Poll.objects.all()
