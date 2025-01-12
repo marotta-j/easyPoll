@@ -31,6 +31,11 @@ def poll_view(request, id):
     answers = AnswerOptions.objects.filter(poll=poll)
     return render(request, 'poll.html', {'poll': poll, 'answers':answers})
 
+def results_view(request, id):
+    poll = Poll.objects.filter(id=id).first()
+    answers = AnswerOptions.objects.filter(poll=poll)
+    return render(request, 'results.html', {'poll': poll, 'answers':answers})
+
 def vote(request):
     if request.method == "POST":
         ao = AnswerOptions.objects.filter(id=int(request.POST.get("answer_option_id"))).first()

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head><script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Block Title{% endblock %}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sticky-footer/">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      <style>
+      /* Ensuring the container fills the available width with some padding */
+      .container {
+        max-width: 680px; /* You can adjust this value to whatever feels right */
+        margin: 0 auto; /* Centers the container */
+        padding: 30px 15px; /* Adds padding for better spacing */
+      }
+
+      /* Optional: Style for the footer to make sure it sticks */
+      .footer {
+        background-color: #f8f9fa;
+      }
+
+      /* Responsive Design Fix */
+      .main-content {
+        margin-top: 20px; /* Provide spacing from the top */
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column h-100">
+
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+  <div class="container">
+
+    {% block content %}
+    {% endblock %}
+
+  </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+  <div class="container">
+    <span class="text-body-secondary">Place sticky footer content here.</span>
+  </div>
+</footer>
+
+    </body>
+</html>

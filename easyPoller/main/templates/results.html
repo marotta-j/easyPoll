@@ -1,22 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Poll</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-    <p>poll {{poll.title}}</p>
+{% extends 'base.html' %}
+{% block title %} Results: {{ poll.title }} {% endblock %}
 
-    {% for answer in answers %}
-    <p>{{answer.id}}| answer {{answer.option}}, # votes = {{answer.votes}}</p>
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Poll: {{ poll.title }}</h1>
 
+    <!-- Bar Chart for Poll Results -->
+    <div class="row my-5">
+        <div class="col-12 text-center">
+            <canvas id="pollChart" width="300" height="100"></canvas>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Prepare data for the bar chart
+    const labels = [{% for answer in answers %}"{{ answer.option }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const data = [{
+        label: 'Votes',
+        data: [{% for answer in answers %}{{ answer.votes }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+    }];
 
-    {% empty %}
-    <p>No options yet :(</p>
-    {% endfor %}
+    // Create the bar chart
+    const ctx = document.getElementById('pollChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: data
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 
-</body>
-</html>
+    // Generate QR Code for the Poll URL
+    const pollUrl = window.location.href;  // Get current page URL (poll URL)
+    var qrcode = new QRCode("qrcode", pollUrl);
+
+    // Add event listeners to vote buttons
+    document.querySelectorAll('.vote-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const optionId = this.getAttribute('data-option-id');
+
+        // Send the vote to the server using AJAX
+        $.ajax({
+          type: 'POST',
+          url: '/vote/',  // Update this to your vote endpoint
+          data: {
+            'answer_option_id': optionId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token for security
+          },
+          success: function(response) {
+            window.location.href = "/{{ poll.id }}/results";
+          },
+          error: function(xhr, status, error) {
+            alert('An error occurred. Please try again later.');
+          }
+        });
+      });
+    });
+</script>
+{% endblock %}
