@@ -11,6 +11,12 @@
   <div class="container">
     <h1>Create a Poll</h1>
 
+    {% for poll in polls %}
+    <p>poll {{poll.title}}</p>
+    {% empty %}
+    <p>No polls yet :(</p>
+    {% endfor %}
+
     <!-- Poll creation form -->
     <form id="createPollForm">
       <div class="form-group">
@@ -83,7 +89,7 @@
         success: function(response) {
           alert("Poll created successfully!");
           // Redirect or reset the form
-          window.location.href = "/polls";
+          window.location.href = "/";
         },
         error: function(xhr, status, error) {
           alert("Error: " + error);
