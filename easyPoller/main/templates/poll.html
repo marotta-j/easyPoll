@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+    <p>poll {{poll.title}}</p>
+
+    {% for answer in answers %}
+    <p>{{answer.id}} answer {{answer.option}}, # votes</p>
+    <button class="vote-btn" data-option-id="{{ option.id }}">Vote</button>
+
+
+    {% empty %}
+    <p>No options yet :(</p>
+    {% endfor %}
+  <script>
+    // Add event listeners to vote buttons
+    document.querySelectorAll('.vote-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const optionId = this.getAttribute('data-option-id');
+
+        // Send the vote to the server using AJAX
+        $.ajax({
+          type: 'POST',
+          url: '/',  // Update this to your vote endpoint
+          data: {
+            'answer_option_id': optionId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token for security
+          },
+          success: function(response) {
+            alert('Your vote has been counted!');
+            location.reload();  // Reload to see updated vote counts
+          },
+          error: function(xhr, status, error) {
+            alert('An error occurred. Please try again later.');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
