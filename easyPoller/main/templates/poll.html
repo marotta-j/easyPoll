@@ -10,7 +10,7 @@
     <div class="row">
         {% for answer in answers %}
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-body">
                     <h5 class="card-title">{{ answer.option }}</h5>
                     <button class="btn btn-primary vote-btn w-100" data-option-id="{{ answer.id }}">
@@ -28,10 +28,18 @@
         {% endfor %}
     </div>
 
-    <!-- QR Code Section -->
     <div class="text-center mt-4">
         <h4>Scan this QR code to share the poll:</h4>
         <div id="qrcode" class="d-inline-block mt-3"></div>
+    </div>
+
+    <div class="text-center mt-4">
+        <h4>Or, use this link:</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <input id="disabledInput" type="text" class="form-control" placeholder="" disabled>
+            </div>
+        </div>
     </div>
 
 
@@ -42,8 +50,13 @@
 
 <script>
     // Generate QR Code for the Poll URL
-    const pollUrl = window.location.href;  // Get current page URL (poll URL)
+    const str = window.location.href;  // Get current page URL (poll URL)
+    const pollUrl = str.replace('/results', '');
     var qrcode = new QRCode("qrcode", pollUrl);
+
+    // Update URL underneath QR code
+    const inputElement = document.getElementById('disabledInput');
+    inputElement.placeholder = pollUrl;
 
     // Add event listeners to vote buttons
     document.querySelectorAll('.vote-btn').forEach(button => {

@@ -11,9 +11,45 @@
             <canvas id="pollChart" width="300" height="100"></canvas>
         </div>
     </div>
+
+    <div class="text-center mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <button class="btn btn-primary w-100 submit-btn" onClick="window.location.reload();">Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="text-center mt-4">
+        <h4>Scan this QR code to share the poll:</h4>
+        <div id="qrcode" class="d-inline-block mt-3"></div>
+    </div>
+
+    <div class="text-center mt-4">
+        <h4>Or, use this link:</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <input id="disabledInput" type="text" class="form-control" placeholder="" disabled>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Generate QR Code for the Poll URL
+    const str = window.location.href;  // Get current page URL (poll URL)
+    const pollUrl = str.replace('/results', '');
+    var qrcode = new QRCode("qrcode", pollUrl);
+
+    // Update URL underneath QR code
+    const inputElement = document.getElementById('disabledInput');
+    inputElement.placeholder = pollUrl;
+
     // Prepare data for the bar chart
     const labels = [{% for answer in answers %}"{{ answer.option }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
     const data = [{
@@ -41,10 +77,6 @@
             }
         }
     });
-
-    // Generate QR Code for the Poll URL
-    const pollUrl = window.location.href;  // Get current page URL (poll URL)
-    var qrcode = new QRCode("qrcode", pollUrl);
 
     // Add event listeners to vote buttons
     document.querySelectorAll('.vote-btn').forEach(button => {
