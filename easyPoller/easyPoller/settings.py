@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'easyPoller.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'easyPoll',
+        'NAME': 'easypoll',
         'USER': os.getenv("PG_USER"),
         'PASSWORD': os.getenv("PG_PASS"),
         'HOST': os.getenv("PG_HOST"),
