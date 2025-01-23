@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index),
-    path("<int:id>", views.poll_view, name='poll_view'),
-    path("<int:id>/results", views.results_view),
+    path("<slug:slug>", views.poll_view, name='poll_view'),
+    path("<slug:slug>/results", views.results_view),
     path('vote/', views.vote)
 ]

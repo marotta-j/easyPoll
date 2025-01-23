@@ -19,20 +19,20 @@ def index(request):
             a = AnswerOptions(poll=new_poll, option=answer, votes=0)
             a.save()
 
-        return JsonResponse(new_poll.id, safe=False)
+        return JsonResponse(new_poll.slug, safe=False)
 
 
     polls = Poll.objects.all()
     return render(request, 'index.html', {'polls':polls})
 
 
-def poll_view(request, id):
-    poll = Poll.objects.filter(id=id).first()
+def poll_view(request, slug):
+    poll = Poll.objects.filter(slug=slug).first()
     answers = AnswerOptions.objects.filter(poll=poll)
     return render(request, 'poll.html', {'poll': poll, 'answers':answers})
 
-def results_view(request, id):
-    poll = Poll.objects.filter(id=id).first()
+def results_view(request, slug):
+    poll = Poll.objects.filter(slug=slug).first()
     answers = AnswerOptions.objects.filter(poll=poll)
     return render(request, 'results.html', {'poll': poll, 'answers':answers})
 

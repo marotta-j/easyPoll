@@ -92,7 +92,7 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token for security
           },
           success: function(response) {
-            window.location.href = "/{{ poll.id }}/results";
+            window.location.href = "/{{ poll.slug }}/results";
           },
           error: function(xhr, status, error) {
             alert('An error occurred. Please try again later.');
