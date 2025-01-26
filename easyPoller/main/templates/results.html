@@ -30,8 +30,11 @@
     <div class="text-center mt-4">
         <h4>Or, use this link:</h4>
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <input id="disabledInput" type="text" class="form-control" value="" readonly>
+            <div class="col-md-6 col-lg-4">
+                <div class="input-group mb-1">
+                    <input id="disabledInput" type="text" class="form-control" value="" readonly>
+                    <button class="btn btn-outline-secondary" type="button" id="copyButton">Copy</button>
+                </div>
             </div>
         </div>
     </div>
@@ -41,6 +44,29 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // code for the Copy button
+
+    // get the button
+    const copyButton = document.getElementById('copyButton');
+
+    copyButton.addEventListener("click", function() {
+        var textToCopy = document.getElementById("disabledInput");
+
+
+
+        // Select the text
+        textToCopy.select();
+        textToCopy.setSelectionRange(0, 99999); // For mobile
+
+        // copy it and change button accordingly
+        navigator.clipboard.writeText(textToCopy.value).then(() => {
+            copyButton.textContent = "Copied";
+        }).catch(err => {
+            copyButton.textContent = "Error";
+        });
+    });
+
+
     // Generate QR Code for the Poll URL
     const str = window.location.href;  // Get current page URL (poll URL)
     const pollUrl = str.replace('/results', '');
