@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Page not found {{ poll.title }} {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <p>Sorry, this page does not exist :(</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
