@@ -6,7 +6,6 @@
     <h1 class="text-center display-2 mb-4">{{ poll.title }}</h1>
 
 
-
     <div class="row">
         {% for answer in answers %}
         <div class="col-md-4 mb-4">
@@ -28,11 +27,14 @@
         {% endfor %}
     </div>
 
+    {% if answers %}
+    <!-- QR lock -->
     <div class="text-center mt-4">
         <h4>Scan this QR code to share the poll:</h4>
         <div id="qrcode" class="d-inline-block mt-3"></div>
     </div>
 
+    <!-- Share link -->
     <div class="text-center mt-4">
         <h4>Or, use this link:</h4>
         <div class="row justify-content-center">
@@ -44,11 +46,7 @@
             </div>
         </div>
     </div>
-
-
-
-
-
+    {% endif %}
 </div>
 
 <script>
