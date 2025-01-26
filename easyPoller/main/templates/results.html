@@ -31,7 +31,7 @@
         <h4>Or, use this link:</h4>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <input id="disabledInput" type="text" class="form-control" placeholder="" disabled>
+                <input id="disabledInput" type="text" class="form-control" value="" readonly>
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
 
     // Update URL underneath QR code
     const inputElement = document.getElementById('disabledInput');
-    inputElement.placeholder = pollUrl;
+    inputElement.value = pollUrl;
 
     // Prepare data for the bar chart
     const labels = [{% for answer in answers %}"{{ answer.option }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
