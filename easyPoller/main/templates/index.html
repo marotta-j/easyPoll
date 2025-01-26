@@ -12,7 +12,7 @@
         <div class="col-md-8 offset-md-2">
           <div class="form-group">
             <label for="pollQuestion" class="form-label">Poll Question</label>
-            <input type="text" id="pollQuestion" name="question" class="form-control" placeholder="Enter the poll question" required>
+            <input type="text" id="pollQuestion" name="question" class="form-control" placeholder="Enter the poll question" autofocus required>
           </div>
         </div>
       </div>
@@ -32,18 +32,21 @@
         </div>
       </div>
 
-      <!-- Checkbox for going straight to results -->
-      <div class="row mb-4">
-        <div class="col-md-8 offset-md-2">
-            <input class="form-check-input" type="checkbox" id="takeMeToResultsCheck">
-            <label class="form-check-label" for="takeMeToResultsCheck">Take me straight to the results</label>
-        </div>
-      </div>
-
       <!-- Button to add more options -->
       <div class="row mb-4">
         <div class="col-md-8 offset-md-2">
           <button type="button" id="addOptionBtn" class="btn btn-outline-primary w-100">Add Another Option</button>
+        </div>
+      </div>
+
+       <!-- Checkbox for going straight to results -->
+      <div class="row mb-4">
+        <div class="col-md-8 offset-md-2">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="takeMeToResultsCheck">
+            <label class="form-check-label" for="takeMeToResultsCheck">Take me straight to the results</label>
+          </div>
+          <small class="text-muted">Check this box to bypass the voting page and go straight to the results after creating the poll.</small>
         </div>
       </div>
 
