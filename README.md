@@ -5,7 +5,7 @@
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 ![Gunicorn](https://img.shields.io/badge/gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-## [**Try it here!**](http://easypoll.xyz) 🚀
+## [**Try it here!**](https://easypoll.xyz) 🚀
 
 **easyPoll** is a simple web application that allows users to create, share, and vote in polls! 
 
