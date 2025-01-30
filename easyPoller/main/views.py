@@ -8,14 +8,22 @@ from django.http import HttpResponse, JsonResponse
 def index(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        title = data.get("question")[0]
+
+        # Server-side check for 200 max characters
+        if len(title) > 200:
+            return JsonResponse({'error':'The poll title is too long! (Max 200 characters)'}, status=400)
 
         new_poll = Poll(
-            title = data.get("question")[0]
+            title = title
         )
 
         new_poll.save()
 
         for answer in data.get("answer_option"):
+            # Check if all answer options are under 100 characters
+            if len(answer) > 100:
+                return JsonResponse({'error': 'One of your answer options is too long! (Max 100 characters)'}, status=400)
             a = AnswerOptions(poll=new_poll, option=answer, votes=0)
             a.save()
 
