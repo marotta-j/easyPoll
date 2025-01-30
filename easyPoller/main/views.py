@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Poll, AnswerOptions
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 
 # Create your views here.
 
@@ -37,11 +37,21 @@ def index(request):
 def poll_view(request, slug):
     poll = Poll.objects.filter(slug=slug).first()
     answers = AnswerOptions.objects.filter(poll=poll)
+
+    # If either doesn't exist return 404
+    if not poll or not answers:
+        raise Http404("Poll not found")
+
     return render(request, 'poll.html', {'poll': poll, 'answers':answers})
 
 def results_view(request, slug):
     poll = Poll.objects.filter(slug=slug).first()
     answers = AnswerOptions.objects.filter(poll=poll)
+
+    # If either doesn't exist return 404
+    if not poll or not answers:
+        raise Http404("Poll not found")
+
     return render(request, 'results.html', {'poll': poll, 'answers':answers})
 
 def vote(request):

@@ -5,7 +5,6 @@
 <div class="container my-5">
     <h1 class="text-center mb-4">Results: {{ poll.title }}</h1>
 
-    {% if answers %}
     <!-- Bar Chart for Poll Results -->
     <div class="row my-5">
         <div class="col-12 text-center">
@@ -42,14 +41,6 @@
         </div>
     </div>
 
-    {% else %}
-    <div class="col-12">
-            <div class="alert alert-warning text-center">
-                <p>No results found :(</p>
-            </div>
-        </div>
-    {% endif %}
-
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -61,8 +52,6 @@
 
     copyButton.addEventListener("click", function() {
         var textToCopy = document.getElementById("disabledInput");
-
-
 
         // Select the text
         textToCopy.select();
@@ -112,29 +101,6 @@
                 }
             }
         }
-    });
-
-    // Add event listeners to vote buttons
-    document.querySelectorAll('.vote-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const optionId = this.getAttribute('data-option-id');
-
-        // Send the vote to the server using AJAX
-        $.ajax({
-          type: 'POST',
-          url: '/vote/',  // Update this to your vote endpoint
-          data: {
-            'answer_option_id': optionId,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token for security
-          },
-          success: function(response) {
-            window.location.href = "/{{ poll.slug }}/results";
-          },
-          error: function(xhr, status, error) {
-            alert('An error occurred. Please try again later.');
-          }
-        });
-      });
     });
 </script>
 {% endblock %}
