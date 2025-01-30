@@ -72,6 +72,9 @@
       <button type="button" class="btn btn-outline-danger remove-option">Remove</button>
     `;
     document.getElementById("answerOptions").appendChild(newOption);
+
+    # automatically focus on the new item
+    newOption.querySelector("input").focus();
   });
 
   // Remove an answer option
