@@ -5,7 +5,6 @@
 <div class="container my-5">
     <h1 class="text-center display-2 mb-4">{{ poll.title }}</h1>
 
-
     <div class="row">
         {% for answer in answers %}
         <div class="col-md-4 mb-4">
@@ -27,7 +26,9 @@
         {% endfor %}
     </div>
 
-    {% if answers %}
+    <!-- Horizontal line -->
+    <hr />
+
     <!-- QR lock -->
     <div class="text-center mt-4">
         <h4>Scan this QR code to share the poll:</h4>
@@ -46,7 +47,6 @@
             </div>
         </div>
     </div>
-    {% endif %}
 </div>
 
 <script>

@@ -52,7 +52,10 @@ def results_view(request, slug):
     if not poll or not answers:
         raise Http404("Poll not found")
 
-    return render(request, 'results.html', {'poll': poll, 'answers':answers})
+    # Find how many votes the winner has
+    max_votes = max([votes for votes in [a.votes for a in answers]])
+
+    return render(request, 'results.html', {'poll': poll, 'answers':answers, 'max_votes':max_votes})
 
 def vote(request):
     if request.method == "POST":
