@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Poll, AnswerOptions
 import json
 from django.http import HttpResponse, JsonResponse, Http404
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -75,6 +76,13 @@ def vote(request):
             request.session[f'voted_in_{str(poll_id)}'] = True
 
             return HttpResponse(200)
+
+def stats(request):
+    poll_count = Poll.objects.all().count()
+    options_count = AnswerOptions.objects.all().count()
+    votes = AnswerOptions.objects.aggregate(total_votes=Sum('votes'))['total_votes']
+    return render(request, 'stats.html', {'poll_count': poll_count, 'options_count':options_count,
+                                          'votes':votes})
 
 
 
