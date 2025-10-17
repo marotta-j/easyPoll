@@ -1,15 +1,15 @@
 # easyPoll
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)
 ![Gunicorn](https://img.shields.io/badge/gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
+## [**Try it here!**](https://easypoll.xyz) 🚀
+
 **easyPoll** is a simple web application that allows users to create, share, and vote in polls! 
 
-easyPoll was built with **Django** and **Python**, and was hosted on **AWS EC2** (served via **Gunicorn**, and managed with **Nginx**).
-
+easyPoll was built with **Django** and **Python**, and is hosted on **Railway**!
 
 ---
 
